@@ -1,4 +1,4 @@
-package dev.timatifey.stockaggregator.fragments.stocks
+package dev.timatifey.stockaggregator.fragments.main.list.stocks
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -14,8 +14,9 @@ import com.bumptech.glide.Glide
 import dagger.hilt.android.AndroidEntryPoint
 
 import dev.timatifey.stockaggregator.R
-import dev.timatifey.stockaggregator.data.stocks.DataState
-import dev.timatifey.stockaggregator.data.stocks.StocksViewModel
+import dev.timatifey.stockaggregator.fragments.main.list.ListItemDecoration
+import dev.timatifey.stockaggregator.viewmodel.stocks.DataState
+import dev.timatifey.stockaggregator.viewmodel.stocks.StocksViewModel
 
 @AndroidEntryPoint
 class StocksFragment : Fragment() {
@@ -28,9 +29,9 @@ class StocksFragment : Fragment() {
 
     private fun initViews(view: View) {
         recyclerView = view.findViewById(R.id.fragment_stocks__recycler_view)
-        adapter = StocksAdapter(Glide.with(requireActivity()))
+        adapter = StocksAdapter(Glide.with(requireActivity()), stockViewModel)
         recyclerView.adapter = adapter
-        recyclerView.addItemDecoration(StocksItemDecoration(8))
+        recyclerView.addItemDecoration(ListItemDecoration(8))
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
         progressLoader = view.findViewById(R.id.fragment_stocks__progress_bar)
     }

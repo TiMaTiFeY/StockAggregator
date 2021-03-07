@@ -10,4 +10,7 @@
     <color name="text_primary">#1A1A1A</color>
     <color name="price_raises">#24B25D</color>
     <color name="price_falls">#B22424</color>
+    <color name="star_shadow">#BABABA</color>
+    <color name="star_yellow">#FFCA1C</color>
+    <color name="text_gray">#BABABA</color>
 </resources>

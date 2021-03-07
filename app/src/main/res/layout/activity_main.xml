@@ -7,11 +7,11 @@
     tools:context=".fragments.MainActivity">
 
     <fragment
-        android:id="@+id/fragment"
+        android:id="@+id/activity__fragment"
         android:name="androidx.navigation.fragment.NavHostFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:defaultNavHost="true"
-        app:navGraph="@navigation/nav_graph" />
+        app:navGraph="@navigation/activity__nav_graph" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

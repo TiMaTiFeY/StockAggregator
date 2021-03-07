@@ -1,10 +1,10 @@
-package dev.timatifey.stockaggregator.fragments.stocks
+package dev.timatifey.stockaggregator.fragments.main.list
 
 import android.graphics.Rect
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 
-class StocksItemDecoration(private val offset: Int): RecyclerView.ItemDecoration() {
+class ListItemDecoration(private val offset: Int): RecyclerView.ItemDecoration() {
 
     override fun getItemOffsets(
         outRect: Rect,

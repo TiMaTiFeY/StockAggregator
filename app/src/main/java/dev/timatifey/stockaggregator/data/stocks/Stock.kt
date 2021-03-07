@@ -12,9 +12,9 @@ data class Stock (
     val name: String,
     val logo: String,
 
-    val currency: String,
-    val currentPrice: Float,
-    val previousClosePrice: Float,
+    var currency: String,
+    var currentPrice: Float,
+    var previousClosePrice: Float,
 
-    val isFavourite: Boolean = false,
+    var isFavourite: Boolean = false,
 )

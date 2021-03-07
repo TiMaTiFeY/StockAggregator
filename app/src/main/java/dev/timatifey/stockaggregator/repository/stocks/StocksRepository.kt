@@ -1,9 +1,12 @@
-package dev.timatifey.stockaggregator.data.stocks
+package dev.timatifey.stockaggregator.repository.stocks
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import dev.timatifey.stockaggregator.data.network.Resource
 import dev.timatifey.stockaggregator.data.network.Status
-import kotlinx.coroutines.delay
+import dev.timatifey.stockaggregator.data.stocks.Stock
+import dev.timatifey.stockaggregator.data.stocks.StocksDao
+import dev.timatifey.stockaggregator.data.stocks.StocksDataSource
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -23,10 +26,26 @@ class StocksRepository @Inject constructor(
         val result = stocksDataSource.loadStocks()
         if (result.status is Status.Success) {
             result.data!!.forEach {
-                addStock(it)
+                if (!containsSymbol(it.ticker)) {
+                    addStock(it)
+                }
             }
         }
         return result
+    }
+
+    suspend fun updateStock(stock: Stock) {
+        stocksDao.updateStock(stock)
+    }
+
+    private fun containsSymbol(symbol: String): Boolean {
+        val data = readAllData.value ?: return false
+        for (stock in data) {
+            if (stock.ticker == symbol) {
+                return true
+            }
+        }
+        return false
     }
 
 }

@@ -1,4 +1,4 @@
-package dev.timatifey.stockaggregator.data.stocks
+package dev.timatifey.stockaggregator.viewmodel.stocks
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
@@ -6,7 +6,12 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
+
 import dev.timatifey.stockaggregator.data.network.Status
+import dev.timatifey.stockaggregator.data.stocks.Stock
+import dev.timatifey.stockaggregator.repository.stocks.StocksRepository
+
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -23,12 +28,21 @@ class StocksViewModel @Inject constructor(
 
     init {
         _state.value = DataState.LoadingState
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             val result = stocksRepository.loadStocks()
-            when(result.status) {
-                is Status.Success -> _state.value = DataState.SuccessState
-                is Status.Error -> _state.value = result.message?.let { DataState.ErrorState(it) }
+            launch(Dispatchers.Main) {
+                when (result.status) {
+                    is Status.Success -> _state.value = DataState.SuccessState
+                    is Status.Error -> _state.value =
+                        result.message?.let { DataState.ErrorState(it) }
+                }
             }
+        }
+    }
+
+    fun updateStock(stock: Stock) {
+        viewModelScope.launch(Dispatchers.IO) {
+            stocksRepository.updateStock(stock)
         }
     }
 }

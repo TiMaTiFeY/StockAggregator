@@ -2,7 +2,7 @@ package dev.timatifey.stockaggregator.data.stocks
 
 import android.util.Log
 import com.google.gson.Gson
-import dev.timatifey.stockaggregator.Config.Companion.EXCHANGE_CODES
+import dev.timatifey.stockaggregator.Config.Companion.CLEARBIT_BASE_URL
 import dev.timatifey.stockaggregator.Config.Companion.FINNHUB_BASE_SYMBOLS
 import dev.timatifey.stockaggregator.Config.Companion.FINNHUB_TOKEN
 import dev.timatifey.stockaggregator.data.network.Resource
@@ -10,7 +10,6 @@ import dev.timatifey.stockaggregator.data.network.ResponseHandler
 import dev.timatifey.stockaggregator.data.network.Status
 import dev.timatifey.stockaggregator.data.network.StockSymbolResponse
 import dev.timatifey.stockaggregator.network.FinnhubAPI
-import kotlinx.coroutines.delay
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -65,7 +64,7 @@ class StocksDataSource @Inject constructor(
             val stock = Stock(
                 ticker = companyProfile.ticker,
                 name = companyProfile.name,
-                logo = companyProfile.logo,
+                logo = CLEARBIT_BASE_URL+parseUrl(companyProfile.webUrl, companyProfile.currency),
                 currency = companyProfile.currency,
                 currentPrice = quote.currentPrice,
                 previousClosePrice = quote.previousPrice
@@ -74,6 +73,18 @@ class StocksDataSource @Inject constructor(
         } catch (e: Exception) {
             ResponseHandler.handleException(e)
         }
+    }
+
+    private fun parseUrl(webUrl: String, currency: String): String {
+        var url = webUrl
+            .replaceFirst("https://", "")
+            .replaceFirst("http://", "")
+            .split("/")
+            .first()
+        if (currency == "RUB") {
+            url = url.replace(".com", ".ru")
+        }
+        return url
     }
 
 }

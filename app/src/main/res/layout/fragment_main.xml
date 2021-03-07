@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    tools:context=".fragments.main.MainFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/search_field__background"
+        android:padding="11dp"
+        android:paddingStart="16dp"
+        tools:ignore="RtlSymmetry"
+        android:orientation="horizontal"
+        android:layout_marginBottom="20dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="19dp">
+        <ImageView
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:background="@drawable/ic_search"
+            android:backgroundTint="@color/text_primary"
+            android:layout_marginEnd="8dp"/>
+        <androidx.appcompat.widget.AppCompatEditText
+            style="@style/SearchButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/find_company_or_ticket"
+            android:layout_gravity="center"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:textColorHint="@color/text_primary"
+            android:textColor="@color/text_primary" />
+    </LinearLayout>
+
+    <fragment
+        android:id="@+id/main_fragment__fragment"
+        android:name="androidx.navigation.fragment.NavHostFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:defaultNavHost="true"
+        app:navGraph="@navigation/main_fragment__nav_graph" />
+
+</LinearLayout>

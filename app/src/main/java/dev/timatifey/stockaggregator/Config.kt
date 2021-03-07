@@ -4,9 +4,21 @@ class Config {
     companion object {
         const val FINNHUB_BASE_URL = "https://finnhub.io/api/v1/"
         const val FINNHUB_TOKEN = "c12121v48v6p2grllkd0"
-        val FINNHUB_BASE_SYMBOLS =
-            listOf("YNDX", "AAPL", "GOOGL", "AMZN", "BAC", "MSFT", "TSLA", "MA")
-        val EXCHANGE_CODES = listOf(
+        const val CLEARBIT_BASE_URL = "https://logo.clearbit.com/"
+        val FINNHUB_BASE_SYMBOLS = listOf(
+            "YNDX",
+            "AAPL",
+            "GOOGL",
+            "AMZN",
+            "BAC",
+            "MSFT",
+            "TSLA",
+            "MA",
+            "APPF",
+            "APPN"
+        )
+
+       /* val EXCHANGE_CODES = listOf(
             "AS\n" +
                     "AT\n" +
                     "AX\n" +
@@ -77,6 +89,6 @@ class Config {
                     "SX\n" +
                     "TG \n" +
                     "SC".split("\n")
-        )
+        )*/
     }
 }

@@ -1,22 +1,23 @@
-package dev.timatifey.stockaggregator.fragments.stocks
+package dev.timatifey.stockaggregator.fragments.main.list.stocks
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import android.widget.TextView
+import androidx.appcompat.widget.AppCompatButton
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.RequestManager
 import dev.timatifey.stockaggregator.R
 import dev.timatifey.stockaggregator.data.stocks.Stock
-import kotlin.math.abs
-import kotlin.math.max
-import kotlin.math.min
+import dev.timatifey.stockaggregator.utils.PriceChanges
+import dev.timatifey.stockaggregator.utils.withCurrency
+import dev.timatifey.stockaggregator.viewmodel.stocks.StocksViewModel
 
 class StocksAdapter(
-    private val glide: RequestManager
-    ): RecyclerView.Adapter<StocksAdapter.StockViewHolder>() {
+    private val glide: RequestManager,
+    private val stocksViewModel: StocksViewModel,
+) : RecyclerView.Adapter<StocksAdapter.StockViewHolder>() {
 
     var stockList = emptyList<Stock>()
         set(value) {
@@ -24,13 +25,13 @@ class StocksAdapter(
             notifyDataSetChanged()
         }
 
-    class StockViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
-
-    }
+    class StockViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): StockViewHolder {
-        return StockViewHolder(LayoutInflater.from(parent.context)
-            .inflate(R.layout.custom_stock_row, parent, false))
+        return StockViewHolder(
+            LayoutInflater.from(parent.context)
+                .inflate(R.layout.custom_stock_row, parent, false)
+        )
     }
 
     override fun onBindViewHolder(holder: StockViewHolder, position: Int) {
@@ -61,19 +62,28 @@ class StocksAdapter(
                 else
                     ContextCompat.getColor(context, R.color.price_falls)
             )
-        }
-    }
 
-    class PriceChanges(currentPrice: Float, previousClosePrice: Float, currency: String) {
-        var viewString: String? = null
-        var priceIsRaising = false
-
-        init {
-            priceIsRaising = currentPrice >= previousClosePrice
-            val dif = abs(currentPrice - previousClosePrice)
-            val proc = String.format("%.2f", (max(currentPrice, previousClosePrice) /
-                    min(currentPrice, previousClosePrice) - 1) * 100)
-            viewString = "${if (priceIsRaising) "+" else "-"}${dif.withCurrency(currency)} ($proc%)"
+            val likeButton = findViewById<AppCompatButton>(R.id.custom__like_btn)
+            likeButton.backgroundTintList = ContextCompat.getColorStateList(
+                context,
+                if (currentItem.isFavourite) R.color.star_yellow else R.color.star_shadow
+            )
+            likeButton.setOnClickListener { button ->
+                if (currentItem.isFavourite) {
+                    currentItem.isFavourite = false
+                    button.backgroundTintList = ContextCompat.getColorStateList(
+                        context,
+                        R.color.star_shadow
+                    )
+                } else {
+                    currentItem.isFavourite = true
+                    button.backgroundTintList = ContextCompat.getColorStateList(
+                        context,
+                        R.color.star_yellow
+                    )
+                }
+                stocksViewModel.updateStock(currentItem)
+            }
         }
     }
 
@@ -81,11 +91,3 @@ class StocksAdapter(
         return stockList.size
     }
 }
-
-private fun Number.withCurrency(currency: String): CharSequence =
-    when(currency) {
-        "USD" -> "$$this"
-        "RUB" -> "$this ₽"
-        "EUR" -> "$this €"
-        else -> "$this $currency"
-    }

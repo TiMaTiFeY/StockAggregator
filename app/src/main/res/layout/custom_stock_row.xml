@@ -9,6 +9,7 @@
     <androidx.cardview.widget.CardView
         android:id="@+id/custom__logo_wrapper"
         app:cardCornerRadius="12dp"
+        app:cardElevation="0dp"
         android:layout_width="wrap_content"
         android:layout_height="52dp"
         app:layout_constraintStart_toStartOf="parent"
@@ -67,6 +68,17 @@
         app:layout_constraintBottom_toTopOf="@id/custom__price_changes"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/custom__like_btn"
+        android:layout_width="17dp"
+        android:layout_height="17dp"
+        android:layout_marginStart="6dp"
+        android:backgroundTint="@color/star_shadow"
+        android:background="@drawable/ic_star"
+        app:layout_constraintStart_toEndOf="@id/custom__ticket"
+        app:layout_constraintBaseline_toBaselineOf="@id/custom__ticket"
+        android:baselineAlignBottom="true" />
 
     <TextView
         android:layout_marginEnd="12dp"

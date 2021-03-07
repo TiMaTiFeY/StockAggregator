@@ -14,4 +14,7 @@ data class CompanyProfileResponse(
 
     @SerializedName("logo")
     val logo: String,
+
+    @SerializedName("weburl")
+    val webUrl: String,
 )
