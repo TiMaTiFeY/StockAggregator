@@ -2,6 +2,7 @@ package dev.timatifey.stockaggregator.repository.stocks
 
 import android.util.Log
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import dev.timatifey.stockaggregator.data.network.Resource
 import dev.timatifey.stockaggregator.data.network.Status
 import dev.timatifey.stockaggregator.data.stocks.Stock
@@ -17,6 +18,10 @@ class StocksRepository @Inject constructor(
 ) {
 
     val readAllData: LiveData<List<Stock>> = stocksDao.readAllData()
+    val favouriteStocksData: LiveData<List<Stock>> = stocksDao.readFavouriteStocks()
+
+    private val _searchResultList = MutableLiveData<List<Stock>>()
+    val searchResultList: LiveData<List<Stock>> = _searchResultList
 
     private suspend fun addStock(stock: Stock) {
         stocksDao.addStock(stock)
@@ -32,6 +37,14 @@ class StocksRepository @Inject constructor(
             }
         }
         return result
+    }
+
+    fun getSearchResult(request: String): LiveData<List<Stock>> {
+        return stocksDao.searchRequest("%$request%")
+    }
+
+    fun updateSearchResult(list: List<Stock>) {
+        _searchResultList.value = list
     }
 
     suspend fun updateStock(stock: Stock) {

@@ -2,6 +2,8 @@ package dev.timatifey.stockaggregator
 
 class Config {
     companion object {
+        const val APP_PREFERENCE_NAME = "stock"
+        const val APP_IS_FIRST = "isFirst"
         const val FINNHUB_BASE_URL = "https://finnhub.io/api/v1/"
         const val FINNHUB_TOKEN = "c12121v48v6p2grllkd0"
         const val CLEARBIT_BASE_URL = "https://logo.clearbit.com/"

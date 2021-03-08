@@ -15,7 +15,7 @@
     </fragment>
     <fragment
         android:id="@+id/cardFragment"
-        android:name="dev.timatifey.stockaggregator.fragments.card.CardFragment"
+        android:name="dev.timatifey.stockaggregator.fragments.stockdetails.StockDetailsFragment"
         android:label="fragment_card"
-        tools:layout="@layout/fragment_card" />
+        tools:layout="@layout/fragment_stock_details" />
 </navigation>

@@ -11,8 +11,13 @@
         android:label="fragment_list"
         tools:layout="@layout/fragment_list" />
     <fragment
-        android:id="@+id/searchFragment"
-        android:name="dev.timatifey.stockaggregator.fragments.main.search.SearchFragment"
-        android:label="fragment_search"
-        tools:layout="@layout/fragment_search" />
+        android:id="@+id/searchEmptyFragment"
+        android:name="dev.timatifey.stockaggregator.fragments.main.search.empty.SearchEmptyFragment"
+        android:label="fragment_search_empty"
+        tools:layout="@layout/fragment_search_empty" />
+    <fragment
+        android:id="@+id/searchResultFragment"
+        android:name="dev.timatifey.stockaggregator.fragments.main.search.result.SearchResultFragment"
+        android:label="fragment_search_result"
+        tools:layout="@layout/fragment_search_result" />
 </navigation>

@@ -24,30 +24,45 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             />
-
     </androidx.cardview.widget.CardView>
 
-
-    <TextView
-        android:layout_marginStart="12dp"
-        android:layout_marginTop="14dp"
-        android:id="@+id/custom__ticket"
+    <LinearLayout
+        android:id="@+id/custom__ticket_star"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintStart_toEndOf="@id/custom__logo_wrapper"
         app:layout_constraintBottom_toTopOf="@id/custom__name"
         app:layout_constraintTop_toTopOf="parent"
-        android:textSize="18sp"
-        android:textColor="@color/text_primary"
-        android:textStyle="bold"
-        android:text="YNDX"/>
+        android:orientation="horizontal"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="14dp">
+        <TextView
+            android:id="@+id/custom__ticket"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:textColor="@color/text_primary"
+            android:textStyle="bold"
+            android:text="YNDX"/>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/custom__like_btn"
+            android:layout_width="26dp"
+            android:layout_height="26dp"
+            android:layout_marginStart="6dp"
+            android:backgroundTint="@color/star_shadow"
+            android:foregroundGravity="center_vertical"
+            android:background="@drawable/ic_star"
+            android:layout_gravity="center_vertical"/>
+
+    </LinearLayout>
 
     <TextView
         android:layout_marginStart="12dp"
         android:id="@+id/custom__name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/custom__ticket"
+        app:layout_constraintTop_toBottomOf="@id/custom__ticket_star"
         app:layout_constraintStart_toEndOf="@id/custom__logo_wrapper"
         app:layout_constraintBottom_toBottomOf="parent"
         android:textSize="12sp"
@@ -62,23 +77,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="4 764,6 ₽"
-        android:textSize="18sp"
+        android:textSize="20sp"
         android:textColor="@color/text_primary"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@id/custom__price_changes"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/custom__like_btn"
-        android:layout_width="17dp"
-        android:layout_height="17dp"
-        android:layout_marginStart="6dp"
-        android:backgroundTint="@color/star_shadow"
-        android:background="@drawable/ic_star"
-        app:layout_constraintStart_toEndOf="@id/custom__ticket"
-        app:layout_constraintBaseline_toBaselineOf="@id/custom__ticket"
-        android:baselineAlignBottom="true" />
 
     <TextView
         android:layout_marginEnd="12dp"

@@ -6,4 +6,9 @@
     <string name="tab_name__favourite">Favourite</string>
     <string name="find_company_or_ticket">Find company or ticket</string>
     <string name="empty_list">Empty list</string>
+    <string name="stocks">Stocks</string>
+    <string name="show_more">Show more</string>
+    <string name="not_found">Not found</string>
+    <string name="popular_requests">Popular requests</string>
+    <string name="you_ve_searched_for_this">You`ve searched for this</string>
 </resources>

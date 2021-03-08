@@ -4,17 +4,19 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.widget.AppCompatButton
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.RequestManager
+
 import dev.timatifey.stockaggregator.R
 import dev.timatifey.stockaggregator.data.stocks.Stock
 import dev.timatifey.stockaggregator.utils.PriceChanges
 import dev.timatifey.stockaggregator.utils.withCurrency
 import dev.timatifey.stockaggregator.viewmodel.stocks.StocksViewModel
 
-class StocksAdapter(
+open class StocksAdapter(
     private val glide: RequestManager,
     private val stocksViewModel: StocksViewModel,
 ) : RecyclerView.Adapter<StocksAdapter.StockViewHolder>() {
@@ -82,9 +84,17 @@ class StocksAdapter(
                         R.color.star_yellow
                     )
                 }
-                stocksViewModel.updateStock(currentItem)
+                afterLikeClick(currentItem)
+            }
+
+            setOnClickListener {
+                Toast.makeText(context, "Clicked on ${currentItem.name}", Toast.LENGTH_SHORT).show()
             }
         }
+    }
+
+    protected open fun afterLikeClick(currentItem: Stock) {
+        stocksViewModel.updateStock(currentItem)
     }
 
     override fun getItemCount(): Int {
