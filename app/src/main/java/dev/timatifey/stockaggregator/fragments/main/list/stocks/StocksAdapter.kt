@@ -3,6 +3,7 @@ package dev.timatifey.stockaggregator.fragments.main.list.stocks
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.widget.AppCompatButton
@@ -27,68 +28,74 @@ open class StocksAdapter(
             notifyDataSetChanged()
         }
 
-    class StockViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
+    class StockViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        val tvName: TextView = itemView.findViewById(R.id.custom__name)
+        val tvTicket: TextView = itemView.findViewById(R.id.custom__ticket)
+        val tvCurrentPrice: TextView = itemView.findViewById(R.id.custom__current_price)
+        val ivLogo: ImageView = itemView.findViewById(R.id.custom__logo)
+        val tvPriceChanges: TextView = itemView.findViewById(R.id.custom__price_changes)
+        val btnLike: AppCompatButton = itemView.findViewById(R.id.custom__like_btn)
+
+        val colorPriceRaises = ContextCompat.getColor(itemView.context, R.color.price_raises)
+        val colorPriceFalls = ContextCompat.getColor(itemView.context, R.color.price_falls)
+
+        val colorStateShadow =
+            ContextCompat.getColorStateList(itemView.context, R.color.star_shadow)
+        val colorStateYellow =
+            ContextCompat.getColorStateList(itemView.context, R.color.star_yellow)
+
+        val colorBackgroundGray =
+            ContextCompat.getDrawable(itemView.context, R.drawable.custom__background_gray)
+        val colorBackgroundWhite =
+            ContextCompat.getDrawable(itemView.context, R.drawable.custom__background_white)
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): StockViewHolder {
-        return StockViewHolder(
-            LayoutInflater.from(parent.context)
-                .inflate(R.layout.custom_stock_row, parent, false)
-        )
+        val view =
+            LayoutInflater.from(parent.context).inflate(R.layout.custom_stock_row, parent, false)
+        return StockViewHolder(view)
     }
 
     override fun onBindViewHolder(holder: StockViewHolder, position: Int) {
         val currentItem = stockList[position]
-        holder.itemView.apply {
-            findViewById<TextView>(R.id.custom__name).text = currentItem.name
-            findViewById<TextView>(R.id.custom__ticket).text = currentItem.ticker
-            findViewById<TextView>(R.id.custom__current_price).text = currentItem.currentPrice
-                .withCurrency(currentItem.currency)
+        val changes = PriceChanges(
+            currentItem.currentPrice,
+            currentItem.previousClosePrice,
+            currentItem.currency
+        )
 
-            glide.load(currentItem.logo)
-                .into(findViewById(R.id.custom__logo))
+        holder.apply {
+            tvName.text = currentItem.name
+            tvTicket.text = currentItem.ticker
+            tvCurrentPrice.text = currentItem.currentPrice.withCurrency(currentItem.currency)
+            glide.load(currentItem.logo).into(ivLogo)
+            itemView.background = if (position % 2 == 0)
+                colorBackgroundGray
+            else
+                colorBackgroundWhite
 
-            if (position % 2 == 0) {
-                background = ContextCompat.getDrawable(context, R.drawable.custom__background)
-            }
-
-            val changes = PriceChanges(
-                currentItem.currentPrice,
-                currentItem.previousClosePrice,
-                currentItem.currency
-            )
-            val priceChangesView = findViewById<TextView>(R.id.custom__price_changes)
-            priceChangesView.text = changes.viewString
-            priceChangesView.setTextColor(
-                if (changes.priceIsRaising)
-                    ContextCompat.getColor(context, R.color.price_raises)
-                else
-                    ContextCompat.getColor(context, R.color.price_falls)
+            tvPriceChanges.text = changes.viewString
+            tvPriceChanges.setTextColor(
+                if (changes.priceIsRaising) colorPriceRaises else colorPriceFalls
             )
 
-            val likeButton = findViewById<AppCompatButton>(R.id.custom__like_btn)
-            likeButton.backgroundTintList = ContextCompat.getColorStateList(
-                context,
-                if (currentItem.isFavourite) R.color.star_yellow else R.color.star_shadow
-            )
-            likeButton.setOnClickListener { button ->
+            btnLike.backgroundTintList =
+                if (currentItem.isFavourite) colorStateYellow else colorStateShadow
+
+            btnLike.setOnClickListener { button ->
                 if (currentItem.isFavourite) {
                     currentItem.isFavourite = false
-                    button.backgroundTintList = ContextCompat.getColorStateList(
-                        context,
-                        R.color.star_shadow
-                    )
+                    button.backgroundTintList = colorStateShadow
                 } else {
                     currentItem.isFavourite = true
-                    button.backgroundTintList = ContextCompat.getColorStateList(
-                        context,
-                        R.color.star_yellow
-                    )
+                    button.backgroundTintList = colorStateYellow
                 }
                 afterLikeClick(currentItem)
             }
 
-            setOnClickListener {
-                Toast.makeText(context, "Clicked on ${currentItem.name}", Toast.LENGTH_SHORT).show()
+            itemView.setOnClickListener {
+                Toast.makeText(itemView.context, "Clicked on ${currentItem.name}",
+                    Toast.LENGTH_SHORT).show()
             }
         }
     }
