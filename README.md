@@ -8,8 +8,9 @@ Min SDK Version: **API 21**
 ## Are used:
 + ### Google Jetpack components:
     + Room
-    + Hilt
+    + Hilt (Dagger)
     + Lifecycle components
+    + Navigation component
 + ### For network:
     + Retrofit
     + OkHttp
