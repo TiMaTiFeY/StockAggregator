@@ -9,24 +9,12 @@
 
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/fragment_list__tabs"
+        style="@style/TabLayoutStyle"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="32dp"
         android:layout_marginBottom="20dp"
         android:paddingStart="20dp"
-        android:paddingEnd="20dp"
-        app:tabMode="scrollable">
-
-        <com.google.android.material.tabs.TabItem
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/tab_name__stocks" />
-
-        <com.google.android.material.tabs.TabItem
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/tab_name__favourite" />
-
-    </com.google.android.material.tabs.TabLayout>
+        android:paddingEnd="20dp" />
 
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/fragment_list__view_pager"

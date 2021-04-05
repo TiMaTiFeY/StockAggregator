@@ -7,10 +7,11 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
-import dev.timatifey.stockaggregator.data.stocks.StocksDao
+import dev.timatifey.stockaggregator.data.database.StocksDao
 import javax.inject.Singleton
 
-import dev.timatifey.stockaggregator.data.stocks.StocksDatabase
+import dev.timatifey.stockaggregator.data.database.AppDatabase
+import dev.timatifey.stockaggregator.data.database.SearchDao
 
 @Module
 @InstallIn(SingletonComponent::class)
@@ -18,12 +19,23 @@ object RoomModule {
 
     @Singleton
     @Provides
-    fun provideStocksDao(@ApplicationContext context: Context): StocksDao {
+    fun provideDatabase(@ApplicationContext context: Context): AppDatabase {
         return Room.databaseBuilder(
             context,
-            StocksDatabase::class.java,
-            "company_database"
-        ).build().stocksDao()
+            AppDatabase::class.java,
+            "database"
+        ).build()
     }
 
+    @Singleton
+    @Provides
+    fun provideStocksDao(appDatabase: AppDatabase): StocksDao {
+        return appDatabase.stocksDao()
+    }
+
+    @Singleton
+    @Provides
+    fun providesSearchDao(appDatabase: AppDatabase): SearchDao {
+        return appDatabase.searchDao()
+    }
 }

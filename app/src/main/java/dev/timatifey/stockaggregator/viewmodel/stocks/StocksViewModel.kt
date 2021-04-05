@@ -4,21 +4,23 @@ import android.app.Application
 import android.content.Context
 import androidx.lifecycle.*
 import dagger.hilt.android.lifecycle.HiltViewModel
-import dagger.hilt.android.qualifiers.ApplicationContext
 import dev.timatifey.stockaggregator.Config
+import dev.timatifey.stockaggregator.data.model.SearchRequest
 import dev.timatifey.stockaggregator.data.network.Status
 
-import dev.timatifey.stockaggregator.data.stocks.Stock
+import dev.timatifey.stockaggregator.data.model.Stock
+import dev.timatifey.stockaggregator.repository.stocks.SearchRepository
 import dev.timatifey.stockaggregator.repository.stocks.StocksRepository
 
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
-import javax.inject.Singleton
 
 @HiltViewModel
 class StocksViewModel @Inject constructor(
     private val stocksRepository: StocksRepository,
+    private val searchRepository: SearchRepository,
     application: Application
 ) : ViewModel() {
 
@@ -40,7 +42,7 @@ class StocksViewModel @Inject constructor(
             _state.value = DataState.LoadingState
             viewModelScope.launch(Dispatchers.IO) {
                 val result = stocksRepository.loadStocks()
-                launch(Dispatchers.Main) {
+                withContext(Dispatchers.Main) {
                     when (result.status) {
                         is Status.Success -> _state.value = DataState.SuccessState
                         is Status.Error -> _state.value =
@@ -61,6 +63,9 @@ class StocksViewModel @Inject constructor(
     }
 
     fun searchDatabase(request: String): LiveData<List<Stock>> {
+        viewModelScope.launch(Dispatchers.IO) {
+            searchRepository.addRequest(SearchRequest(searchText = request))
+        }
         return stocksRepository.getSearchResult(request)
     }
 

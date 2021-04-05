@@ -22,6 +22,7 @@
         android:id="@+id/fragment_main__search__empty__recycler_view__popular_requests"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="11dp"
         android:orientation="horizontal"
         app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
         app:layout_constraintEnd_toEndOf="parent"
@@ -58,6 +59,7 @@
         android:id="@+id/fragment_main__search__empty__recycler_view__you_searched"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="11dp"
         android:orientation="horizontal"
         app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
         app:layout_constraintEnd_toEndOf="parent"
@@ -66,16 +68,5 @@
         app:layout_constraintTop_toBottomOf="@id/fragment_main__search__empty__label__you_searched"
         app:spanCount="2" />
 
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/fragment_main__search__empty__label__you_searched_empty"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/montserrat_bold"
-        android:text="@string/empty"
-        android:textSize="18sp"
-        android:visibility="gone"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/fragment_main__search__empty__label__you_searched" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

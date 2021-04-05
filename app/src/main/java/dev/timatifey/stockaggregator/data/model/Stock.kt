@@ -1,4 +1,4 @@
-package dev.timatifey.stockaggregator.data.stocks
+package dev.timatifey.stockaggregator.data.model
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey

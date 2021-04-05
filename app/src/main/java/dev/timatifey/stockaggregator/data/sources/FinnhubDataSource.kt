@@ -1,22 +1,24 @@
-package dev.timatifey.stockaggregator.data.stocks
+package dev.timatifey.stockaggregator.data.sources
 
 import android.util.Log
 import com.google.gson.Gson
 import dev.timatifey.stockaggregator.Config.Companion.CLEARBIT_BASE_URL
 import dev.timatifey.stockaggregator.Config.Companion.FINNHUB_BASE_SYMBOLS
 import dev.timatifey.stockaggregator.Config.Companion.FINNHUB_TOKEN
+import dev.timatifey.stockaggregator.data.model.SearchRequest
 import dev.timatifey.stockaggregator.data.network.Resource
 import dev.timatifey.stockaggregator.data.network.ResponseHandler
 import dev.timatifey.stockaggregator.data.network.Status
 import dev.timatifey.stockaggregator.data.network.StockSymbolResponse
+import dev.timatifey.stockaggregator.data.model.Stock
 import dev.timatifey.stockaggregator.network.FinnhubAPI
 import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class StocksDataSource @Inject constructor(
+class FinnhubDataSource @Inject constructor(
     private val finnhubAPI: FinnhubAPI
-){
+) {
     companion object {
         const val TAG = "StocksDataSource"
     }
@@ -64,7 +66,7 @@ class StocksDataSource @Inject constructor(
             val stock = Stock(
                 ticker = companyProfile.ticker,
                 name = companyProfile.name,
-                logo = CLEARBIT_BASE_URL+parseUrl(companyProfile.webUrl, companyProfile.currency),
+                logo = CLEARBIT_BASE_URL + parseUrl(companyProfile.webUrl, companyProfile.currency),
                 currency = companyProfile.currency,
                 currentPrice = quote.currentPrice,
                 previousClosePrice = quote.previousPrice
@@ -85,6 +87,25 @@ class StocksDataSource @Inject constructor(
             url = url.replace(".com", ".ru")
         }
         return url
+    }
+
+    fun loadPopularRequests(): Resource<List<SearchRequest>> {
+        return try {
+            val requests = listOf(
+                "Apple",
+                "Amazon",
+                "Google",
+                "Tesla",
+                "First Solar",
+                "Alibaba",
+                "Facebook",
+                "Mastercard"
+            )
+                .map { SearchRequest(searchText = it) }
+            ResponseHandler.handleSuccess(requests)
+        } catch (e: Exception) {
+            ResponseHandler.handleException(e)
+        }
     }
 
 }

@@ -1,8 +1,8 @@
-package dev.timatifey.stockaggregator.data.stocks
+package dev.timatifey.stockaggregator.data.database
 
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.room.*
+import dev.timatifey.stockaggregator.data.model.Stock
 
 @Dao
 interface StocksDao {

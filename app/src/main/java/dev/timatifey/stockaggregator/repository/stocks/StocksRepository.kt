@@ -1,20 +1,19 @@
 package dev.timatifey.stockaggregator.repository.stocks
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import dev.timatifey.stockaggregator.data.network.Resource
 import dev.timatifey.stockaggregator.data.network.Status
-import dev.timatifey.stockaggregator.data.stocks.Stock
-import dev.timatifey.stockaggregator.data.stocks.StocksDao
-import dev.timatifey.stockaggregator.data.stocks.StocksDataSource
+import dev.timatifey.stockaggregator.data.model.Stock
+import dev.timatifey.stockaggregator.data.database.StocksDao
+import dev.timatifey.stockaggregator.data.sources.FinnhubDataSource
 import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
 class StocksRepository @Inject constructor(
     private val stocksDao: StocksDao,
-    private val stocksDataSource: StocksDataSource,
+    private val finnhubDataSource: FinnhubDataSource,
 ) {
 
     val readAllData: LiveData<List<Stock>> = stocksDao.readAllData()
@@ -28,7 +27,7 @@ class StocksRepository @Inject constructor(
     }
 
     suspend fun loadStocks(): Resource<List<Stock>> {
-        val result = stocksDataSource.loadStocks()
+        val result = finnhubDataSource.loadStocks()
         if (result.status is Status.Success) {
             result.data!!.forEach {
                 if (!containsSymbol(it.ticker)) {

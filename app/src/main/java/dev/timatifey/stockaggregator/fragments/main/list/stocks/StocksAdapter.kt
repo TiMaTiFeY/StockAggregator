@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.RequestManager
 
 import dev.timatifey.stockaggregator.R
-import dev.timatifey.stockaggregator.data.stocks.Stock
+import dev.timatifey.stockaggregator.data.model.Stock
 import dev.timatifey.stockaggregator.utils.PriceChanges
 import dev.timatifey.stockaggregator.utils.withCurrency
 import dev.timatifey.stockaggregator.viewmodel.stocks.StocksViewModel
@@ -29,12 +29,14 @@ open class StocksAdapter(
         }
 
     class StockViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val tvName: AppCompatTextView = itemView.findViewById(R.id.custom__name)
-        val tvTicket: AppCompatTextView = itemView.findViewById(R.id.custom__ticket)
-        val tvCurrentPrice: AppCompatTextView = itemView.findViewById(R.id.custom__current_price)
-        val ivLogo: AppCompatImageView = itemView.findViewById(R.id.custom__logo)
-        val tvPriceChanges: AppCompatTextView = itemView.findViewById(R.id.custom__price_changes)
-        val btnLike: AppCompatButton = itemView.findViewById(R.id.custom__like_btn)
+        val tvName: AppCompatTextView = itemView.findViewById(R.id.list_item__stock__name)
+        val tvTicket: AppCompatTextView = itemView.findViewById(R.id.list_item__stock__ticket)
+        val tvCurrentPrice: AppCompatTextView =
+            itemView.findViewById(R.id.list_item__stock__current_price)
+        val ivLogo: AppCompatImageView = itemView.findViewById(R.id.list_item__stock__logo)
+        val tvPriceChanges: AppCompatTextView =
+            itemView.findViewById(R.id.list_item__stock__price_changes)
+        val btnLike: AppCompatButton = itemView.findViewById(R.id.list_item__stock__like_btn)
 
         val colorPriceRaises = ContextCompat.getColor(itemView.context, R.color.price_raises)
         val colorPriceFalls = ContextCompat.getColor(itemView.context, R.color.price_falls)
@@ -94,8 +96,10 @@ open class StocksAdapter(
             }
 
             itemView.setOnClickListener {
-                Toast.makeText(itemView.context, "Clicked on ${currentItem.name}",
-                    Toast.LENGTH_SHORT).show()
+                Toast.makeText(
+                    itemView.context, "Clicked on ${currentItem.name}",
+                    Toast.LENGTH_SHORT
+                ).show()
             }
         }
     }

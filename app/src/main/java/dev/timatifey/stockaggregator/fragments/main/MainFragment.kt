@@ -5,25 +5,29 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.EditorInfo
 import androidx.appcompat.widget.AppCompatEditText
+import androidx.appcompat.widget.AppCompatImageButton
 import androidx.appcompat.widget.AppCompatImageView
-import androidx.core.widget.doOnTextChanged
+import androidx.appcompat.widget.AppCompatTextView
 import androidx.fragment.app.viewModels
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import dagger.hilt.android.AndroidEntryPoint
 
 import dev.timatifey.stockaggregator.R
+import dev.timatifey.stockaggregator.viewmodel.search.SearchViewModel
 import dev.timatifey.stockaggregator.viewmodel.stocks.StocksViewModel
 
 @AndroidEntryPoint
 class MainFragment : Fragment() {
     private val stocksViewModel: StocksViewModel by viewModels()
+    private val searchViewModel: SearchViewModel by viewModels()
 
     private lateinit var searchEditText: AppCompatEditText
     private lateinit var searchIcon: AppCompatImageView
-    private lateinit var backIcon: AppCompatImageView
-    private lateinit var clearIcon: AppCompatImageView
+    private lateinit var backIcon: AppCompatImageButton
+    private lateinit var clearIcon: AppCompatImageButton
 
     private lateinit var mainNavController: NavController
 
@@ -53,17 +57,27 @@ class MainFragment : Fragment() {
                     backIcon.visibility = View.VISIBLE
                 }
             }
-
-            doOnTextChanged { text, _, _, _ ->
-                if (text.isNullOrEmpty()) {
-                    clearIcon.visibility = View.GONE
-                    mainNavController.navigate(R.id.searchEmptyFragment)
-                } else {
-                    clearIcon.visibility = View.VISIBLE
-                    mainNavController.navigate(R.id.searchResultFragment)
+            setOnEditorActionListener { v, actionId, _ ->
+                val text = (v as AppCompatEditText).text
+                if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                    if (text.isNullOrEmpty()) {
+                        clearIcon.visibility = View.GONE
+                        mainNavController.navigate(R.id.searchEmptyFragment)
+                    } else {
+                        clearIcon.visibility = View.VISIBLE
+                        mainNavController.navigate(R.id.searchResultFragment)
+                    }
+                    searchDatabase(text.toString())
                 }
-                searchDatabase(text.toString())
+                false
             }
+        }
+
+        searchViewModel.searchRequest.observe(viewLifecycleOwner) {
+            searchEditText.setText(it.searchText)
+            clearIcon.visibility = View.VISIBLE
+            mainNavController.navigate(R.id.searchResultFragment)
+            searchDatabase(it.searchText)
         }
 
         backIcon.setOnClickListener {
@@ -79,6 +93,8 @@ class MainFragment : Fragment() {
 
         clearIcon.setOnClickListener {
             searchEditText.text?.clear()
+            clearSearchResult()
+            navigateToSearch(true)
         }
 
         return view
@@ -88,6 +104,10 @@ class MainFragment : Fragment() {
         stocksViewModel.searchDatabase(text).observe(viewLifecycleOwner) {
             stocksViewModel.updateSearchList(it)
         }
+    }
+
+    private fun clearSearchResult() {
+        stocksViewModel.updateSearchList(emptyList())
     }
 
     private fun navigateToSearch(fieldIsEmpty: Boolean?) {
