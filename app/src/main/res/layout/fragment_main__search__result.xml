@@ -1,56 +1,60 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".fragments.main.search.result.SearchResultFragment"
     android:layout_marginStart="16dp"
-    android:layout_marginEnd="16dp">
+    android:layout_marginEnd="16dp"
+    tools:context=".fragments.main.search.result.SearchResultFragment">
 
-    <TextView
+    <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/fragment_search_result__fragment_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:fontFamily="@font/montserrat_bold"
         android:text="@string/stocks"
-        android:textSize="24sp"
         android:textColor="@color/text_primary"
+        android:textSize="24sp"
         android:textStyle="bold"
-        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
-        android:layout_marginStart="4dp" />
-    <TextView
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/fragment_search_result__show_more_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/show_more"
-        android:textSize="16sp"
-        android:textColor="@color/text_primary"
-        android:textStyle="bold"
         android:layout_marginEnd="4dp"
+        android:fontFamily="@font/montserrat_semibold"
+        android:text="@string/show_more"
+        android:textColor="@color/text_primary"
+        android:textSize="16sp"
+        android:textStyle="bold"
         app:layout_constraintBaseline_toBaselineOf="@id/fragment_search_result__fragment_label"
-        app:layout_constraintEnd_toEndOf="parent"
-        />
+        app:layout_constraintEnd_toEndOf="parent" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/fragment_search_result__recycler_view"
-        android:layout_marginTop="8dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
         android:visibility="gone"
-        app:layout_constraintTop_toBottomOf="@+id/fragment_search_result__fragment_label"
-        />
-    <TextView
+        app:layout_constraintTop_toBottomOf="@+id/fragment_search_result__fragment_label" />
+
+    <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/fragment_search_result__not_found_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/not_found"
         android:layout_gravity="center"
+        android:fontFamily="@font/montserrat_bold"
+        android:text="@string/not_found"
         android:textColor="@color/text_gray"
         android:textSize="35sp"
         android:textStyle="bold"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"/>
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

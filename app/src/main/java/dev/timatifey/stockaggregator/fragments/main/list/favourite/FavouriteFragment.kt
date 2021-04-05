@@ -5,7 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
+import androidx.appcompat.widget.AppCompatTextView
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -23,23 +23,23 @@ class FavouriteFragment : Fragment() {
     private lateinit var adapter: FavouriteAdapter
 
     private lateinit var recyclerView: RecyclerView
-    private lateinit var emptyLabel: TextView
+    private lateinit var emptyLabel: AppCompatTextView
 
-    private fun initViews(view: View) {
-        recyclerView = view.findViewById(R.id.fragment_favourite__recycler_view)
+    private fun View.initViews() {
+        recyclerView = findViewById(R.id.fragment_favourite__recycler_view)
         adapter = FavouriteAdapter(Glide.with(requireActivity()), stocksViewModel)
         recyclerView.adapter = adapter
         recyclerView.addItemDecoration(ListItemDecoration(8))
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
-        emptyLabel = view.findViewById(R.id.fragment_favourite__empty_label)
+        emptyLabel = findViewById(R.id.fragment_favourite__empty_label)
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.fragment_favourite, container, false)
-        initViews(view)
+        val view = inflater.inflate(R.layout.fragment_main__list__favourite, container, false)
+        view.initViews()
 
         stocksViewModel.favouriteStocksList.observe(viewLifecycleOwner, {
             adapter.stockList = it

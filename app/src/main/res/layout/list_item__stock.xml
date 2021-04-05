@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="68dp"
+    android:padding="8dp">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/custom__logo_wrapper"
+        android:layout_width="wrap_content"
+        android:layout_height="52dp"
+        app:cardCornerRadius="12dp"
+        app:cardElevation="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/custom__logo"
+            android:layout_width="52dp"
+            android:layout_height="52dp"
+            android:contentDescription="@string/company_logo"
+            android:src="@drawable/ic_stock_default"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.cardview.widget.CardView>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/custom__ticket"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="14dp"
+        android:fontFamily="@font/montserrat_bold"
+        android:textColor="@color/text_primary"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@id/custom__name"
+        app:layout_constraintStart_toEndOf="@id/custom__logo_wrapper"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="YNDX" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/custom__like_btn"
+        android:layout_width="26dp"
+        android:layout_height="26dp"
+        android:layout_gravity="center_vertical"
+        android:layout_marginStart="6dp"
+        android:background="@drawable/ic_star"
+        android:backgroundTint="@color/star_shadow"
+        android:foregroundGravity="center_vertical"
+        app:layout_constraintBottom_toBottomOf="@id/custom__ticket"
+        app:layout_constraintStart_toEndOf="@id/custom__ticket"
+        app:layout_constraintTop_toTopOf="@id/custom__ticket" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/custom__name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:layout_marginBottom="14dp"
+        android:fontFamily="@font/montserrat_semibold"
+        android:textColor="@color/text_primary"
+        android:textSize="12sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@id/custom__logo_wrapper"
+        app:layout_constraintTop_toBottomOf="@id/custom__ticket"
+        tools:text="Yandex, LLC" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/custom__current_price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="17dp"
+        android:fontFamily="@font/montserrat_bold"
+        android:textColor="@color/text_primary"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@id/custom__price_changes"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="4 764,6 ₽" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/custom__price_changes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="12dp"
+        android:fontFamily="@font/montserrat_semibold"
+        android:textColor="@color/price_raises"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/custom__current_price"
+        tools:text="+55 ₽ (1,15%)" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

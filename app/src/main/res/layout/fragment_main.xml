@@ -1,67 +1,72 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
     android:focusable="true"
     android:focusableInTouchMode="true"
+    android:orientation="vertical"
     tools:context=".fragments.main.MainFragment">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="19dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="20dp"
         android:background="@drawable/search_field__background"
+        android:orientation="horizontal"
         android:padding="11dp"
         android:paddingStart="16dp"
-        tools:ignore="RtlSymmetry"
-        android:orientation="horizontal"
-        android:layout_marginBottom="20dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginTop="19dp">
-        <ImageView
+        tools:ignore="RtlSymmetry">
+
+        <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/fragment_main__ic_search"
             android:layout_width="24dp"
             android:layout_height="24dp"
-            android:background="@drawable/ic_search"
-            android:backgroundTint="@color/text_primary"
+            android:layout_gravity="center_vertical"
             android:layout_marginEnd="8dp"
-            android:layout_gravity="center_vertical"/>
-        <ImageView
+            android:background="@drawable/ic_search"
+            android:backgroundTint="@color/text_primary" />
+
+        <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/fragment_main__ic_back"
             android:layout_width="24dp"
             android:layout_height="24dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginEnd="8dp"
             android:background="@drawable/ic_backspace"
             android:backgroundTint="@color/text_primary"
-            android:layout_marginEnd="8dp"
-            android:visibility="gone"
-            android:layout_gravity="center_vertical"/>
+            android:visibility="gone" />
+
         <androidx.appcompat.widget.AppCompatEditText
             android:id="@+id/fragment_main__search_edit_text"
             style="@style/SearchButton"
             android:layout_width="0dp"
-            android:layout_weight="1"
             android:layout_height="wrap_content"
-            android:hint="@string/find_company_or_ticket"
             android:layout_gravity="center"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            android:textColorHint="@color/text_primary"
-            android:textColor="@color/text_primary"
+            android:layout_weight="1"
+            android:fontFamily="@font/montserrat_semibold"
+            android:hint="@string/find_company_or_ticket"
+            android:inputType="text"
             android:maxLines="1"
-            android:inputType="text"/>
+            android:textColor="@color/text_primary"
+            android:textColorHint="@color/text_primary"
+            android:textSize="16sp"
+            android:textStyle="bold" />
 
-        <ImageView
+        <androidx.appcompat.widget.AppCompatImageButton
             android:id="@+id/fragment_main__ic_clear"
             android:layout_width="24dp"
             android:layout_height="24dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="8dp"
             android:background="@drawable/ic_clear"
             android:backgroundTint="@color/text_primary"
-            android:layout_marginStart="8dp"
-            android:layout_gravity="center_vertical"
-            android:visibility="visible"/>
+            android:visibility="visible" />
+
     </LinearLayout>
 
     <fragment

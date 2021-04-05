@@ -1,13 +1,12 @@
 package dev.timatifey.stockaggregator.fragments.main
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.EditText
-import android.widget.ImageView
+import androidx.appcompat.widget.AppCompatEditText
+import androidx.appcompat.widget.AppCompatImageView
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.viewModels
 import androidx.navigation.NavController
@@ -21,22 +20,22 @@ import dev.timatifey.stockaggregator.viewmodel.stocks.StocksViewModel
 class MainFragment : Fragment() {
     private val stocksViewModel: StocksViewModel by viewModels()
 
-    private lateinit var searchEditText: EditText
-    private lateinit var searchIcon: ImageView
-    private lateinit var backIcon: ImageView
-    private lateinit var clearIcon: ImageView
+    private lateinit var searchEditText: AppCompatEditText
+    private lateinit var searchIcon: AppCompatImageView
+    private lateinit var backIcon: AppCompatImageView
+    private lateinit var clearIcon: AppCompatImageView
 
     private lateinit var mainNavController: NavController
 
-    private fun initViews(view: View) {
+    private fun View.initViews() {
         val navHostFragment =
             childFragmentManager.findFragmentById(R.id.main_fragment__fragment) as NavHostFragment
         mainNavController = navHostFragment.navController
 
-        searchEditText = view.findViewById(R.id.fragment_main__search_edit_text)
-        searchIcon = view.findViewById(R.id.fragment_main__ic_search)
-        backIcon = view.findViewById(R.id.fragment_main__ic_back)
-        clearIcon = view.findViewById(R.id.fragment_main__ic_clear)
+        searchEditText = findViewById(R.id.fragment_main__search_edit_text)
+        searchIcon = findViewById(R.id.fragment_main__ic_search)
+        backIcon = findViewById(R.id.fragment_main__ic_back)
+        clearIcon = findViewById(R.id.fragment_main__ic_clear)
     }
 
     override fun onCreateView(
@@ -44,18 +43,18 @@ class MainFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_main, container, false)
-        initViews(view)
+        view.initViews()
         searchEditText.apply {
             setOnFocusChangeListener { _, hasFocus ->
                 if (hasFocus) {
                     searchEditText.hint = ""
-                    navigateToSearch(searchEditText.text.isEmpty())
+                    navigateToSearch(searchEditText.text?.isEmpty())
                     searchIcon.visibility = View.GONE
                     backIcon.visibility = View.VISIBLE
                 }
             }
 
-            doOnTextChanged { text, start, before, count ->
+            doOnTextChanged { text, _, _, _ ->
                 if (text.isNullOrEmpty()) {
                     clearIcon.visibility = View.GONE
                     mainNavController.navigate(R.id.searchEmptyFragment)
@@ -69,7 +68,7 @@ class MainFragment : Fragment() {
 
         backIcon.setOnClickListener {
             searchEditText.hint = getString(R.string.find_company_or_ticket)
-            searchEditText.text.clear()
+            searchEditText.text?.clear()
             searchEditText.clearFocus()
             mainNavController.navigate(R.id.listFragment)
 
@@ -79,7 +78,7 @@ class MainFragment : Fragment() {
         }
 
         clearIcon.setOnClickListener {
-            searchEditText.text.clear()
+            searchEditText.text?.clear()
         }
 
         return view
@@ -91,8 +90,8 @@ class MainFragment : Fragment() {
         }
     }
 
-    private fun navigateToSearch(fieldIsEmpty: Boolean) {
-        if (fieldIsEmpty) {
+    private fun navigateToSearch(fieldIsEmpty: Boolean?) {
+        if (fieldIsEmpty == true) {
             mainNavController.navigate(R.id.searchEmptyFragment)
         } else {
             mainNavController.navigate(R.id.searchResultFragment)

@@ -14,17 +14,17 @@ class ListFragment : Fragment() {
     private lateinit var viewPager: ViewPager2
     private lateinit var tabLayout: TabLayout
 
-    private fun initViews(view: View) {
-        viewPager = view.findViewById(R.id.fragment_list__view_pager)
-        tabLayout = view.findViewById(R.id.fragment_list__tabs)
+    private fun View.initViews() {
+        viewPager = findViewById(R.id.fragment_list__view_pager)
+        tabLayout = findViewById(R.id.fragment_list__tabs)
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.fragment_list, container, false)
-        initViews(view)
+        val view = inflater.inflate(R.layout.fragment_main__list, container, false)
+        view.initViews()
         viewPager.adapter = ViewPagerAdapter(this)
         TabLayoutMediator(tabLayout, viewPager) { tab, position ->
             tab.text = when (position) {

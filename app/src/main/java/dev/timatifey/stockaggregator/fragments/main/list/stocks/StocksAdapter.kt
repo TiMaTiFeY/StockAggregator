@@ -3,10 +3,10 @@ package dev.timatifey.stockaggregator.fragments.main.list.stocks
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.widget.AppCompatButton
+import androidx.appcompat.widget.AppCompatImageView
+import androidx.appcompat.widget.AppCompatTextView
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.RequestManager
@@ -29,11 +29,11 @@ open class StocksAdapter(
         }
 
     class StockViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val tvName: TextView = itemView.findViewById(R.id.custom__name)
-        val tvTicket: TextView = itemView.findViewById(R.id.custom__ticket)
-        val tvCurrentPrice: TextView = itemView.findViewById(R.id.custom__current_price)
-        val ivLogo: ImageView = itemView.findViewById(R.id.custom__logo)
-        val tvPriceChanges: TextView = itemView.findViewById(R.id.custom__price_changes)
+        val tvName: AppCompatTextView = itemView.findViewById(R.id.custom__name)
+        val tvTicket: AppCompatTextView = itemView.findViewById(R.id.custom__ticket)
+        val tvCurrentPrice: AppCompatTextView = itemView.findViewById(R.id.custom__current_price)
+        val ivLogo: AppCompatImageView = itemView.findViewById(R.id.custom__logo)
+        val tvPriceChanges: AppCompatTextView = itemView.findViewById(R.id.custom__price_changes)
         val btnLike: AppCompatButton = itemView.findViewById(R.id.custom__like_btn)
 
         val colorPriceRaises = ContextCompat.getColor(itemView.context, R.color.price_raises)
@@ -52,7 +52,7 @@ open class StocksAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): StockViewHolder {
         val view =
-            LayoutInflater.from(parent.context).inflate(R.layout.custom_stock_row, parent, false)
+            LayoutInflater.from(parent.context).inflate(R.layout.list_item__stock, parent, false)
         return StockViewHolder(view)
     }
 

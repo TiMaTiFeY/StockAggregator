@@ -27,29 +27,29 @@ class StocksFragment : Fragment() {
     private lateinit var recyclerView: RecyclerView
     private lateinit var progressLoader: ProgressBar
 
-    private fun initViews(view: View) {
-        recyclerView = view.findViewById(R.id.fragment_stocks__recycler_view)
+    private fun View.initViews() {
+        recyclerView = findViewById(R.id.fragment_stocks__recycler_view)
         adapter = StocksAdapter(Glide.with(requireActivity()), stockViewModel)
         recyclerView.adapter = adapter
         recyclerView.addItemDecoration(ListItemDecoration(8))
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
-        progressLoader = view.findViewById(R.id.fragment_stocks__progress_bar)
+        progressLoader = findViewById(R.id.fragment_stocks__progress_bar)
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.fragment_stocks, container, false)
+        val view = inflater.inflate(R.layout.fragment_main__list__stocks, container, false)
 
-        initViews(view)
+        view.initViews()
 
         stockViewModel.stocksList.observe(viewLifecycleOwner, {
             adapter.stockList = it
         })
 
         stockViewModel.state.observe(viewLifecycleOwner, { state ->
-            when(state) {
+            when (state) {
                 is DataState.LoadingState -> {
                     progressLoader.visibility = View.VISIBLE
                     recyclerView.visibility = View.GONE

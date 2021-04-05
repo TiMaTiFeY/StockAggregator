@@ -10,15 +10,16 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
-    <TextView
+    <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/fragment_favourite__empty_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/empty_list"
         android:layout_gravity="center"
+        android:text="@string/empty_list"
+        android:fontFamily="@font/montserrat_bold"
         android:textColor="@color/text_gray"
         android:textSize="35sp"
         android:textStyle="bold"
-        android:visibility="gone"/>
+        android:visibility="gone" />
 
 </FrameLayout>

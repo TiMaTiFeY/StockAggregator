@@ -11,4 +11,6 @@
     <string name="not_found">Not found</string>
     <string name="popular_requests">Popular requests</string>
     <string name="you_ve_searched_for_this">You`ve searched for this</string>
+    <string name="company_logo">Company Logo</string>
+    <string name="empty">Empty</string>
 </resources>
